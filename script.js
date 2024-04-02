@@ -1,6 +1,11 @@
 //array declaration
 const myLibrary = [];
 
+document.getElementById('new-book-button').onclick = function () {
+  const newBookDialog = document.querySelector('#new-book-dialog');
+  newBookDialog.show();
+};
+
 //object constructor
 function Book(title, author, pages) {
   this.title = title;
@@ -34,4 +39,12 @@ function makeString(length) {
     counter += 1;
   }
   return result;
+}
+
+function libraryLoop() {
+  for (let i = 0; i < myLibrary.length; i++) {
+    console.log(
+      `${myLibrary[i].title} by ${myLibrary[i].author}, has ${myLibrary[i].pages} pages.`
+    );
+  }
 }
