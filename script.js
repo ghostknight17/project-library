@@ -1,9 +1,11 @@
-//array declaration
+// a constant with the name 'myLibrary' is declared
+// this constant has an array as its value
 const myLibrary = [];
-//assigning modal value to newBookModal variable
+// assigning HTML modal as value to newBookModal variable
 const newBookModal = document.querySelector('#new-book-modal');
 
-//object constructor
+// an object constructor is declared, for Book objects, each object
+// is going to have four properties: title, author, pages and read status
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
@@ -11,26 +13,35 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-//this function makes a new book and adds it to the library
+// this function makes a new book object and adds it to the library array
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read);
   myLibrary.push(book);
 }
 
-//this function loops through the books and show them on the console
+// this function loops through the books and show them on the console
+// inside the for loop there is an if statement that checks for read property
+// to show the user the correct info
 function libraryLoop() {
   for (let i = 0; i < myLibrary.length; i++) {
-    console.log(
-      `${myLibrary[i].title} by ${myLibrary[i].author}, has ${myLibrary[i].pages} pages.`
-    );
+    if (myLibrary[i].read) {
+      console.log(
+        `${myLibrary[i].title} by ${myLibrary[i].author}, has ${myLibrary[i].pages} pages and you have already read it.`
+      );
+    } else {
+      console.log(
+        `${myLibrary[i].title} by ${myLibrary[i].author}, has ${myLibrary[i].pages} pages and you haven't read it yet.`
+      );
+    }
   }
 }
 
-//this function makes the modal appears when clicked
+// this function makes the modal element appears when clicked
 document.getElementById('new-book-button').onclick = function () {
   newBookModal.showModal();
 };
-//this function adds a book with the user inputs as its properties and close the modal
+// this function adds a book object with the user inputs
+// as its properties to the Library array and close the modal
 document.getElementById('add-button').onclick = function () {
   title = document.getElementById('title').value;
   author = document.getElementById('author').value;
