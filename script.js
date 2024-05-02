@@ -19,21 +19,35 @@ function addBookToLibrary(title, author, pages, read) {
   myLibrary.push(book);
 }
 
-// this function loops through the books and show them on the console
-// inside the for loop there is an if statement that checks for read property
-// to show the user the correct info
-function libraryLoop() {
-  for (let i = 0; i < myLibrary.length; i++) {
-    if (myLibrary[i].read) {
-      console.log(
-        `${myLibrary[i].title} by ${myLibrary[i].author}, has ${myLibrary[i].pages} pages and you have already read it.`
-      );
-    } else {
-      console.log(
-        `${myLibrary[i].title} by ${myLibrary[i].author}, has ${myLibrary[i].pages} pages and you haven't read it yet.`
-      );
-    }
+function displayBooks() {
+  const bookShelf = document.getElementById('shelf');
+
+  // this loop clears existing content, it literally means: "while there is a
+  // a first child on bookShelf element, remove it". So it keeps removing them
+  // till the element is empty.
+  while (bookShelf.firstChild) {
+    bookShelf.removeChild(bookShelf.firstChild);
   }
+
+  myLibrary.forEach((book) => {
+    const bookCard = document.createElement('div');
+    if (book.read) {
+      bookCard.innerHTML = `
+        <p>${book.title}</p>
+        <p>${book.author}</p>
+        <p>${book.pages}</p>
+        <p>You have already read it.</p>
+      `;
+    } else {
+      bookCard.innerHTML = `
+        <p>${book.title}</p>
+        <p>${book.author}</p>
+        <p>${book.pages}</p>
+        <p>You haven't read it yet.</p>
+      `;
+    }
+    bookShelf.appendChild(bookCard);
+  });
 }
 
 // this function makes the modal element appears when clicked
@@ -49,25 +63,12 @@ document.getElementById('add-button').onclick = function () {
   read = document.getElementById('read').checked;
   addBookToLibrary(title, author, pages, read);
   newBookModal.close();
+  displayBooks();
 };
 
-// //this function adds random books to the array
-// function addRandomBook() {
-//   const randomTitle = makeString(7);
-//   const randomAuthor = makeString(7);
-//   const randomPages = Math.floor(Math.random() * 1000);
-//   addBookToLibrary(randomTitle, randomAuthor, randomPages);
-// }
+// this provisional code adds some books examples to work with
+addBookToLibrary('example of title', 'example of author', 45);
+addBookToLibrary('example of title 2', 'example of author', 87, true);
+addBookToLibrary('example of title 3', 'example of author', 62);
 
-// function makeString(length) {
-//   let result = '';
-//   const characters =
-//     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-//   const charactersLength = characters.length;
-//   let counter = 0;
-//   while (counter < length) {
-//     result += characters.charAt(Math.floor(Math.random() * charactersLength));
-//     counter += 1;
-//   }
-//   return result;
-// }
+displayBooks();
