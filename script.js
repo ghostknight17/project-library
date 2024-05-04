@@ -88,15 +88,19 @@ function displayBooks() {
   document.querySelectorAll('.read-button').forEach((button) => {
     button.addEventListener('click', function () {
       const cardIndex = button.getAttribute('data-index');
-      if (myLibrary[cardIndex].read) {
-        myLibrary[cardIndex].read = false;
-      } else {
-        myLibrary[cardIndex].read = true;
-      }
+      myLibrary[cardIndex].toggleStatus();
       displayBooks();
     });
   });
 }
+
+Book.prototype.toggleStatus = function () {
+  if (this.read) {
+    this.read = false;
+  } else {
+    this.read = true;
+  }
+};
 
 // this function makes the modal element appears when clicked
 document.getElementById('new-book-button').onclick = function () {
